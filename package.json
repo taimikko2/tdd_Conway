@@ -20,8 +20,9 @@
     "parallel": true
   },
   "scripts": {
-    "test": "mocha 'test/**/*.test.mjs'",
+    "test": "mocha --require test/testing.mjs 'test/**/*.test.mjs'",
     "autotest": "npm run test -- --watch",
+    "tcr": "node tcr.mjs",
     "format": "prettier --write ."
   }
 }
