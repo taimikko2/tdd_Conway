@@ -24,6 +24,11 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`ooo`);
   });
 
+  if("has a rule (B3/S23)", () => {
+    let b = new Board(3,3);
+    expect(b.birth).to.be.equal(3);
+  })
+
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttisirivit pois #
   // x = 3, y = 1, rule = B3/S23
