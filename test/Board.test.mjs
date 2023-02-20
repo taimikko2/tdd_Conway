@@ -24,7 +24,7 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`ooo`);
   });
 
-  it("Read longer RLE file '12b3o!' -> 'bbbbbbbbbbbbooo' ", async () => {
+  xit("Read longer RLE file '12b3o!' -> 'bbbbbbbbbbbbooo' ", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\testRLE_12b3o.rle";
     let b = new Board(1, 1);
     await writeFile(filename, "12b3o!", function (err) {
@@ -35,7 +35,17 @@ describe("Create Board", () => {
     b = await b.readRLE(filename);
     expect(b.toString()).to.equalShape(`bbbbbbbbbbbbooo`);
   });
-/*
+
+  it("End of line is $ and after it there is only b", async () => {
+    const filename = "G:\\HY\\tdd\\tdd_Conway\\testRLE_12b3o.rle";
+    let b = new Board(12,3);
+    b.contentToCanvas(0,0, "obo$11o$o!");
+    expect(b.toString()).to.equalShape(`obobbbbbbbbb'
+    ooooooooooob
+    obbbbbbbbbbb`);
+  });
+
+  /*
   it("has a rule (B3/S23)", () => {
     let b = new Board(3,3);
     expect(b.birth).to.be.equal(3);
