@@ -117,6 +117,7 @@ describe("Create Board", () => {
   })
 
   it("can simulate number of iterations", async () => {
+    const filename = "G:\\HY\\tdd\\tdd_Conway\\test4_3o.rle";
     let b = new Board(5, 5);
     await writeFile(filename, "3o!", function (err) {
       if (err) return console.log("===? "+err)
