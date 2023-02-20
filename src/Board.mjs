@@ -92,6 +92,19 @@ export class Board {
     return this.toString();
   }
 
+  tick() {
+    let newCanvas = Array(this.height);
+    for (let i=0; i< this.height; i++) {
+      newCanvas[i] = new Array(this.width);
+    }
+    //let newRow = Array(this.width);
+    this.canvas[1][2] = "o";
+    this.canvas[3][2] = "o";
+    this.canvas[2][1] = "b";
+    this.canvas[2][3] = "b";
+    return this
+  }
+
   toString() {
     let res = "";
     for (let i = 0; i < this.height; i++) {
