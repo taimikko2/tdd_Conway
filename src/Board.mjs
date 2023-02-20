@@ -52,12 +52,16 @@ export class Board {
   }
 
   contentToCanvas(x,y,content) {
-    let count = 1;
-
+    let count = 0;
+    let c = 0;
+    let xpos = x;
+    console.log("content",content);
     for (let i = 0; i < content.length; i++) {
       try {
         if (content[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]) {
-          count = Number(content[i]); // erikoistapauksena kaksinumeroinen luku ...
+          c = Number(content[i]); // erikoistapauksena kaksinumeroinen luku ...
+          count *= 10;
+          count += c;
         } else {
           throw new Error(content[i] + " ei ole luku");
         }
@@ -66,9 +70,12 @@ export class Board {
           break;
         }
         for (let j = 0; j < count; j++) {
-          this.canvas[y][x+j] = content[i];
+          this.canvas[y][xpos] = content[i];
+          console.log("write canvas ",y,xpos,content[i])
+          xpos += 1;
         }
-        count = 1;
+        count = 0;
+        c = 0;
       }
     }
     // alussa kommenttisirivit pois #
