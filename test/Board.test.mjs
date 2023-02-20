@@ -34,6 +34,32 @@ describe("Create Board", () => {
     expect(b.survive[1]).to.be.equal(3);
   })
 
+  it("can add blinker to bigger board", async () => {
+    let b = new Board(5, 5);
+    expect(b.toString()).to.equalShape(`bbbbb
+    bbbbb
+    bbbbb
+    bbbbb    
+    bbbbb`);
+    await writeFile(filename, "3o!", function (err) {
+      if (err) return console.log("===? "+err)
+
+      console.log("Wrote file "+filename);
+    });
+    b = await b.addRLE(1,2,filename);
+    // 3o! -> 'ooo'
+    expect(b.toString()).to.equalShape(`bbbbb
+    bbbbb
+    booob
+    bbbbb    
+    bbbbb`);
+    expect(b.birth).to.be.equal(3);
+    let a = [2,3];
+    expect(b.survive.length).to.be.equal(2);
+    expect(b.survive[0]).to.be.equal(2);
+    expect(b.survive[1]).to.be.equal(3);
+  })
+
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttisirivit pois #
   // x = 3, y = 1, rule = B3/S23
