@@ -40,7 +40,7 @@ describe("Create Board", () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\testRLE_12b3o.rle";
     let b = new Board(12,3);
     b.contentToCanvas(0,0, "obo$11o$o!");
-    expect(b.toString()).to.equalShape(`obobbbbbbbbb'
+    expect(b.toString()).to.equalShape(`obobbbbbbbbb
     ooooooooooob
     obbbbbbbbbbb`);
   });

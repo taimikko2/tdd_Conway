@@ -67,6 +67,9 @@ export class Board {
         }
       } catch (err) {
         if (content[i] == "!") {
+          for (let j = xpos; j<this.width; j++) {
+            this.canvas[y][j] = "b";  
+          }
           break;
         }
         for (let j = 0; j < count; j++) {
