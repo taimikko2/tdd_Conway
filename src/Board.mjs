@@ -55,7 +55,7 @@ export class Board {
     let count = 0;
     let c = 0;
     let xpos = x;
-    console.log("content", content);
+    //console.log("contentToCanvas(",x,",",y,",",content);
     for (let i = 0; i < content.length; i++) {
       try {
         if (content[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]) {
@@ -76,39 +76,28 @@ export class Board {
           for (let j = xpos; j < this.width; j++) {
             this.canvas[y][j] = "b";
           }
-          console.log("fill 'b' line ", y, "pos", xpos);
           count = 0;
           c = 0;
           xpos = x;
           y += 1;
           continue;
         }
-        console.log("content ", content[i]);
         if (count == 0 && c == 0) {
           // content[i] in ["b","o"] &&
-          console.log(
-            "write canvas ",
-            y,
-            xpos,
-            content[i],
-            content[i] in ["b", "o"]
-          );
           this.canvas[y][xpos] = content[i];
           xpos += 1;
         } else {
           for (let j = 0; j < count; j++) {
             this.canvas[y][xpos] = content[i];
-            console.log("write canvas ", y, xpos, content[i]);
             xpos += 1;
           }
         }
-        console.log(this.canvas);
-
+        //console.log(this.canvas);
         count = 0;
         c = 0;
       }
     }
-    // alussa kommenttisirivit pois #
+    // alussa kommenttirivit pois #
     // x = 3, y = 1, rule = B3/S23
     // 3o!
     // x = m, y = n
@@ -153,7 +142,7 @@ export class Board {
   simulate(iterations) {
     for (let i = 0; i < iterations; i++) {
       this.tick();
-      console.log(this.toString());
+      //console.log(this.toString());
     }
   }
 

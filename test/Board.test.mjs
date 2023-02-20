@@ -3,14 +3,14 @@ import { Board } from "../src/Board.mjs";
 import writeFile from "write-file";
 
 describe("Create Board", () => {
-  xit("Create empty board", () => {
+  it("Create empty board", () => {
     let b = new Board(3, 3);
     expect(b.toString()).to.equalShape(`bbb
     bbb
     bbb`);
   });
 
-  xit("Read simple RLE file '3o!' -> 'ooo' ", async () => {
+  it("Read simple RLE file '3o!' -> 'ooo' ", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\test_3o.rle";
     let b = new Board(1, 1);
     // kirjoita tiedosto, jossa on yksi rivi "3o!" ja lue se
@@ -24,7 +24,7 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`ooo`);
   });
 
-  xit("Read longer RLE file '12b3o!' -> 'bbbbbbbbbbbbooo' ", async () => {
+  it("Read longer RLE file '12b3o!' -> 'bbbbbbbbbbbbooo' ", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\testRLE_12b3o.rle";
     let b = new Board(1, 1);
     await writeFile(filename, "12b3o!", function (err) {
@@ -45,7 +45,7 @@ describe("Create Board", () => {
     obbbbbbbbbbb`);
   });
 
-  /*
+  
   it("has a rule (B3/S23)", () => {
     let b = new Board(3,3);
     expect(b.birth).to.be.equal(3);
@@ -158,7 +158,7 @@ describe("Create Board", () => {
     bbobb    
     bbbbb`);
   })
-*/
+
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttisirivit pois #
   // x = 3, y = 1, rule = B3/S23
