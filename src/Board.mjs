@@ -55,7 +55,6 @@ export class Board {
     let count = 0;
     let c = 0;
     let xpos = x;
-    let ch;
     console.log("content", content);
     for (let i = 0; i < content.length; i++) {
       try {
@@ -67,21 +66,44 @@ export class Board {
           throw new Error(content[i] + " ei ole luku");
         }
       } catch (err) {
-        //console.error("moka: ", err);
         if (content[i] == "!") {
-          for (let j = xpos; j<this.width; j++) {
-            this.canvas[y][j] = "b";
-          }
-          break;
-        } else if (content[i] == "$") {
           for (let j = xpos; j < this.width; j++) {
             this.canvas[y][j] = "b";
           }
-        for (let j = 0; j < count; j++) {
-          this.canvas[y][xpos] = content[i];
-          console.log("write canvas ",y,xpos,content[i])
-          xpos += 1;
+          break;
         }
+        if (content[i] == "$") {
+          for (let j = xpos; j < this.width; j++) {
+            this.canvas[y][j] = "b";
+          }
+          console.log("fill 'b' line ", y, "pos", xpos);
+          count = 0;
+          c = 0;
+          xpos = x;
+          y += 1;
+          continue;
+        }
+        console.log("content ", content[i]);
+        if (count == 0 && c == 0) {
+          // content[i] in ["b","o"] &&
+          console.log(
+            "write canvas ",
+            y,
+            xpos,
+            content[i],
+            content[i] in ["b", "o"]
+          );
+          this.canvas[y][xpos] = content[i];
+          xpos += 1;
+        } else {
+          for (let j = 0; j < count; j++) {
+            this.canvas[y][xpos] = content[i];
+            console.log("write canvas ", y, xpos, content[i]);
+            xpos += 1;
+          }
+        }
+        console.log(this.canvas);
+
         count = 0;
         c = 0;
       }
