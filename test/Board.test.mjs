@@ -27,9 +27,11 @@ describe("Create Board", () => {
   it("has a rule (B3/S23)", () => {
     let b = new Board(3,3);
     expect(b.birth).to.be.equal(3);
-    expect(b.survive).to.be(Array);
-    //let a = [2,3];
-    //expect(b.survive).to.be.all.equal(a);
+    console.log("typeof ",typeof(b.survive), b.survive);
+    let a = [2,3];
+    expect(b.survive.length).to.be.equal(2);
+    expect(b.survive[0]).to.be.equal(2);
+    expect(b.survive[1]).to.be.equal(3);
   })
 
   // G:/HY/conwayLife/blinker.rle

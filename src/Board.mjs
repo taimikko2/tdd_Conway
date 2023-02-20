@@ -8,6 +8,7 @@ export class Board {
   x;
   y;
   birth;
+  survive;
 
 
   constructor(w, h) {
@@ -15,6 +16,9 @@ export class Board {
     this.height = h;
     this.canvas = new Array(h);
     this.birth = 3; //default
+    this.survive = new Array();
+    this.survive.push(2);
+    this.survive.push(3);
     for (let i = 0; i < this.height; i++) {
       this.canvas[i] = new Array(w);
       this.canvas[i].fill("b");
