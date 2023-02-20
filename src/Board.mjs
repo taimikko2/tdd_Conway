@@ -93,15 +93,36 @@ export class Board {
   }
 
   tick() {
-    let newCanvas = Array(this.height);
+    let newCanvas = new Array(this.height);
     for (let i=0; i< this.height; i++) {
       newCanvas[i] = new Array(this.width);
     }
-    //let newRow = Array(this.width);
-    this.canvas[1][2] = "o";
-    this.canvas[3][2] = "o";
-    this.canvas[2][1] = "b";
-    this.canvas[2][3] = "b";
+    for (let r = 0; r < this.height; r++) {
+      for (let c = 0; c < this.width; c++) {
+        let count = 0; 
+        for (let ri = r-1; ri <= r+1; ri++) {
+          if (ri < 0 || ri>this.height-1) {
+            continue;
+          }
+          for (let ci = c-1; ci <= c+1; ci++) {
+            if (ci < 0 || ci>this.width-1) {
+              continue;
+            }  
+            if (this.canvas[ri][ci] == "o") {
+              count ++;
+            }
+          }
+        }
+        if (count in(this.survive) && this.canvas[r][c] == "o") {
+          newCanvas[r][c] = "o"; // survive
+        } else if (count == this.birth) {
+          newCanvas[r][c] = "o"; // birth
+        } else {
+          newCanvas[r][c] = "b"; 
+        }
+      }
+    }
+    this.canvas = newCanvas.slice();
     return this
   }
 

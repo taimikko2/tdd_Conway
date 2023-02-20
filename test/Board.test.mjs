@@ -27,7 +27,6 @@ describe("Create Board", () => {
   it("has a rule (B3/S23)", () => {
     let b = new Board(3,3);
     expect(b.birth).to.be.equal(3);
-    console.log("typeof ",typeof(b.survive), b.survive);
     let a = [2,3];
     expect(b.survive.length).to.be.equal(2);
     expect(b.survive[0]).to.be.equal(2);
@@ -90,7 +89,7 @@ describe("Create Board", () => {
   })
 
   it("tick twice brings blinker back to original state", async () => {
-    const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
+    const filename = "G:\\HY\\tdd\\tdd_Conway\\test3_3o.rle";
     let b = new Board(5, 5);
     await writeFile(filename, "3o!", function (err) {
       if (err) return console.log("===? "+err)
