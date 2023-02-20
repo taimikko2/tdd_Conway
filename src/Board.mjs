@@ -7,12 +7,14 @@ export class Board {
   canvas;
   x;
   y;
+  birth;
 
 
   constructor(w, h) {
     this.width = w;
     this.height = h;
     this.canvas = new Array(h);
+    this.birth = 3; //default
     for (let i = 0; i < this.height; i++) {
       this.canvas[i] = new Array(w);
       this.canvas[i].fill("b");

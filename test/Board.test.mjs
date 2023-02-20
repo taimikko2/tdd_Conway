@@ -24,7 +24,7 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`ooo`);
   });
 
-  if("has a rule (B3/S23)", () => {
+  it("has a rule (B3/S23)", () => {
     let b = new Board(3,3);
     expect(b.birth).to.be.equal(3);
   })
