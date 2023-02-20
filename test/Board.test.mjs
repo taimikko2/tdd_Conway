@@ -24,6 +24,18 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`ooo`);
   });
 
+  it("Read longer RLE file '12b3o!' -> 'bbbbbbbbbbbbooo' ", async () => {
+    const filename = "G:\\HY\\tdd\\tdd_Conway\\testRLE_12b3o.rle";
+    let b = new Board(1, 1);
+    await writeFile(filename, "12b3o!", function (err) {
+      if (err) return console.log("===? "+err)
+
+      console.log("Wrote file "+filename);
+    });
+    b = await b.readRLE(filename);
+    expect(b.toString()).to.equalShape(`bbbbbbbbbbbbooo`);
+  });
+
   it("has a rule (B3/S23)", () => {
     let b = new Board(3,3);
     expect(b.birth).to.be.equal(3);
