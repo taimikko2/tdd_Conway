@@ -116,6 +116,25 @@ describe("Create Board", () => {
     bbbbb`);
   })
 
+  it("can simulate number of iterations", async () => {
+    let b = new Board(5, 5);
+    await writeFile(filename, "3o!", function (err) {
+      if (err) return console.log("===? "+err)
+
+      console.log("Wrote file "+filename);
+    });
+    await b.addRLE(1,2,filename);
+    expect(b.birth).to.be.equal(3);
+    expect(b.survive.length).to.be.equal(2);
+    expect(b.survive[0]).to.be.equal(2);
+    expect(b.survive[1]).to.be.equal(3);
+    b.simulate(3);
+    expect(b.toString()).to.equalShape(`bbbbb
+    bbobb
+    bbobb
+    bbobb    
+    bbbbb`);
+  })
 
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttisirivit pois #
