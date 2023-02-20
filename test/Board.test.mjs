@@ -35,6 +35,7 @@ describe("Create Board", () => {
   })
 
   it("can add blinker to bigger board", async () => {
+    const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
     let b = new Board(5, 5);
     expect(b.toString()).to.equalShape(`bbbbb
     bbbbb
@@ -46,7 +47,7 @@ describe("Create Board", () => {
 
       console.log("Wrote file "+filename);
     });
-    b = await b.addRLE(1,2,filename);
+    await b.addRLE(1,2,filename);
     // 3o! -> 'ooo'
     expect(b.toString()).to.equalShape(`bbbbb
     bbbbb
