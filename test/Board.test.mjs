@@ -61,6 +61,33 @@ describe("Create Board", () => {
     expect(b.survive[1]).to.be.equal(3);
   })
 
+  it("can change state (tick)", async () => {
+    const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
+    let b = new Board(5, 5);
+    await writeFile(filename, "3o!", function (err) {
+      if (err) return console.log("===? "+err)
+
+      console.log("Wrote file "+filename);
+    });
+    await b.addRLE(1,2,filename);
+    expect(b.toString()).to.equalShape(`bbbbb
+    bbbbb
+    booob
+    bbbbb    
+    bbbbb`);
+    expect(b.birth).to.be.equal(3);
+    let a = [2,3];
+    expect(b.survive.length).to.be.equal(2);
+    expect(b.survive[0]).to.be.equal(2);
+    expect(b.survive[1]).to.be.equal(3);
+    b.tick();
+    expect(b.toString()).to.equalShape(`bbbbb
+    bbobb
+    bbobb
+    bbobb    
+    bbbbb`);
+    
+  })
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttisirivit pois #
   // x = 3, y = 1, rule = B3/S23
