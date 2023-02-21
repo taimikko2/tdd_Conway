@@ -169,7 +169,7 @@ it("can draw canvas to screen", () => {
   expect(b.draw()).to.equal(`|  o|\n|o o|\n| oo|\n`);
 })
 
-  xit("glider 1 tick", () => {
+  it("glider 1 tick", () => {
     let b = new Board(5, 5);
     b.contentToCanvas(0,0, "bbo$obo$boo!");
     //expect(b.toString()).to.equalShape(`bbo
