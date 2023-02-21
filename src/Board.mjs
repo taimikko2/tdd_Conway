@@ -142,14 +142,21 @@ export class Board {
     return false;
   }
 
+  isAlive(r,c) {
+    if (r<this.height && r>= 0 && c<this.width && c>= 0) {
+      return (this.canvas[r][c] == "o") ? true : false;
+    }
+    return false;
+  }
+
   tick() {
     let newCanvas = new Array(this.height);
-    for (let i = 0; i < this.height; i++) {
+    for (let i = 0; i <= this.height; i++) {
       newCanvas[i] = new Array(this.width);
     }
     let count = 0;
-    for (let r = 0; r < this.height; r++) {
-      for (let c = 0; c < this.width; c++) {
+    for (let r = 0; r <= this.height; r++) {
+      for (let c = 0; c <= this.width; c++) {
         count = 0;
         for (let ri = r - 1; ri <= r + 1; ri++) {
           if (ri < 0 || ri > this.height - 1) {
@@ -167,7 +174,7 @@ export class Board {
             }
           }
         }
-        if (this.canSurvive(count) && this.canvas[r][c] == "o") {
+        if (this.canSurvive(count) && this.isAlive(r,c)) {
           newCanvas[r][c] = "o"; // survive
         } else if (count == this.birth) {
           newCanvas[r][c] = "o"; // birth
@@ -204,4 +211,4 @@ export class Board {
 
 /*let b = new Board(3, 3);
 b.contentToCanvas(0, 0, "bbo$obo$boo!");
-b.asRLE();*/
+b.tick();*/

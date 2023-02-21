@@ -210,7 +210,6 @@ describe("Create Board", () => {
   // palauta kuvio RLE -formaatissa : vasen yläkulma + pienin tarvitava alue
 
   it("glider moving 1 tick (small canvas, grow right+down)", () => {
-    // TODO: ...
     let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo
