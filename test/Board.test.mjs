@@ -187,9 +187,18 @@ describe("Create Board", () => {
   });
 */
 
-// laske kuvion vasen yläkulma R ja tallenna sijainti
-// palauta kuvio RLE -formaatissa : vasen yläkulma + pienin tarvitava alue
+  it("can be printed in RLE -format", () => {
+    let b = new Board(3, 3);
+    b.contentToCanvas(0, 0, "bbo$obo$boo!");
+    expect(b.toString()).to.equalShape(`bbo
+    obo
+    boo`);
+    console.log(b.draw());
+    expect(b.asRLE()).to.equal("bbo$obo$boo!");
+  });
 
+  // laske kuvion vasen yläkulma R ja tallenna sijainti
+  // palauta kuvio RLE -formaatissa : vasen yläkulma + pienin tarvitava alue
 
   xit("glider 1 tick (small canvas)", () => {
     // TODO: ...
