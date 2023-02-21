@@ -214,10 +214,24 @@ export class Board {
     }
     if (bColumn) {
       for (let r = 0; r < this.canvas.length; r++) {
-        line = this.canvas[r].pop();
+        this.canvas[r].pop();
       }
       this.width = this.canvas[0].length;
     }
+
+    bColumn = true;
+    for (let r = 0; r < this.canvas.length; r++) {
+      if (this.canvas[r][0] != "b") {
+        bColumn = false;
+      }
+    }
+    if (bColumn) {
+      for (let r = 0; r < this.canvas.length; r++) {
+        this.canvas[r].shift();
+      }
+      this.width = this.canvas[0].length;
+    }
+
   }
 
   simulate(iterations) {
