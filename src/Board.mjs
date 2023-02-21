@@ -142,9 +142,9 @@ export class Board {
     return false;
   }
 
-  isAlive(r,c) {
-    if (r<this.height && r>= 0 && c<this.width && c>= 0) {
-      return (this.canvas[r][c] == "o") ? true : false;
+  isAlive(r, c) {
+    if (r < this.height && r >= 0 && c < this.width && c >= 0) {
+      return this.canvas[r][c] == "o" ? true : false;
     }
     return false;
   }
@@ -174,7 +174,7 @@ export class Board {
             }
           }
         }
-        if (this.canSurvive(count) && this.isAlive(r,c)) {
+        if (this.canSurvive(count) && this.isAlive(r, c)) {
           newCanvas[r][c] = "o"; // survive
         } else if (count == this.birth) {
           newCanvas[r][c] = "o"; // birth
@@ -184,7 +184,34 @@ export class Board {
       }
     }
     this.canvas = newCanvas.slice();
+    this.height = this.canvas.length;
+    this.width = this.canvas[0].length;
+    this.cleanCanvas();
     return this;
+  }
+
+  cleanCanvas() {
+    let bColumn = true;
+    const bOnly = (value) => value == "b";
+    let line = this.canvas[this.height - 1];
+    // jos viimeisellä rivillä on pelkkää b:tä niin poistetaan (ehkä myös ekalla ?)
+    if (line.every(bOnly)) {
+      this.canvas.length -= 1;
+      //this.canvas.pop();
+      this.height -= 1;
+    }
+
+    for (let r = 0; r < this.canvas.length; r++) {
+      if (this.canvas[r][this.width] != "b") {
+        bColumn = false;
+      }
+    }
+    if (bColumn) {
+      for (let r = 0; r < this.canvas.length; r++) {
+        line = this.canvas[r];
+        line.length -= 1;
+      }
+    }
   }
 
   simulate(iterations) {
