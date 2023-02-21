@@ -226,7 +226,7 @@ describe("Create Board", () => {
   });
 */
 
-  it("glider moving 3 ticks (remove top line)", () => {
+  it("glider moving 3 ticks (remove top line and left column)", () => {
     let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo
@@ -239,11 +239,11 @@ describe("Create Board", () => {
     console.log(b.draw());
     b.tick();
     console.log(b.draw());
-    expect(b.toString()).to.equalShape(`bobo
-    bboo
-    bbob`);
+    expect(b.toString()).to.equalShape(`obo
+    boo
+    bob`);
     expect(b.height).to.equal(3);
-    expect(b.width).to.equal(4);
+    expect(b.width).to.equal(3);
   });
 
   // G:/HY/conwayLife/blinker.rle
