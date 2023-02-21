@@ -51,6 +51,35 @@ export class Board {
     return this.toString();
   }
 
+  asRLE() {
+    // ei optimoi rivin loppuja (jos lopussa pelkkää b:tä, niin voisi olla $)
+    let res = "";
+    let ch;
+    let count;
+    // alkuun vain varsinainen kuvio, jätetään pois muut: x = 3, y = 3, rule= abc
+    for (let r = 0; r < this.height; r++) {
+      ch = this.canvas[r][0];
+      count = 0;
+      if (r > 0) {
+        res += "$";
+      }
+      for (let c = 0; c < this.width; c++) {
+        if (ch == this.canvas[r][c]) {
+          count++;
+        } else {
+          res += (count == 1) ? ch : count + ch;
+          ch = this.canvas[r][c];
+          count = 1;
+        }
+        if (c == this.width - 1) {
+          res += (count == 1) ? ch : count + ch;
+        }
+      }
+    }
+    res += "!";
+    return res;
+  }
+
   contentToCanvas(x, y, content) {
     let count = 0;
     let c = 0;
@@ -97,6 +126,7 @@ export class Board {
         c = 0;
       }
     }
+    console.log(this.canvas);
     // alussa kommenttirivit pois #
     // x = 3, y = 1, rule = B3/S23
     // 3o!
@@ -106,7 +136,7 @@ export class Board {
   }
 
   canSurvive(c) {
-    for (let i =0; i < this.survive.length; i++) {
+    for (let i = 0; i < this.survive.length; i++) {
       if (c == this.survive[i]) {
         return true;
       }
@@ -139,7 +169,7 @@ export class Board {
             }
           }
         }
-        if (this.canSurvive(count) && this.canvas[r][c] == "o") { 
+        if (this.canSurvive(count) && this.canvas[r][c] == "o") {
           newCanvas[r][c] = "o"; // survive
         } else if (count == this.birth) {
           newCanvas[r][c] = "o"; // birth
@@ -168,15 +198,12 @@ export class Board {
   }
 
   draw() {
-    let res = "|"+this.toString().replace(/b/g, " ").replace(/\n/g, "|\n|"); 
-    res = res.slice(0, res.length -1);
+    let res = "|" + this.toString().replace(/b/g, " ").replace(/\n/g, "|\n|");
+    res = res.slice(0, res.length - 1);
     return res;
   }
-  
 }
 
-/*
-let b = new Board(5, 5);
-b.contentToCanvas(1, 1, "bbo$obo$boo!");
-//console.log(b.draw());
-b.tick(); */
+/*let b = new Board(3, 3);
+b.contentToCanvas(0, 0, "bbo$obo$boo!");
+b.asRLE();*/

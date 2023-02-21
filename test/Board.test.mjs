@@ -194,7 +194,7 @@ describe("Create Board", () => {
     obo
     boo`);
     console.log(b.draw());
-    expect(b.asRLE()).to.equal("bbo$obo$boo!");
+    expect(b.asRLE()).to.equal("2bo$obo$b2o!");
   });
 
   // laske kuvion vasen yläkulma R ja tallenna sijainti
