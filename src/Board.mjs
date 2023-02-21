@@ -37,7 +37,6 @@ export class Board {
     this.canvas = new Array(h);
     for (let i = 0; i < this.height; i++) {
       this.canvas[i] = new Array(w);
-      //this.canvas[i].fill("b");
     }
     this.contentToCanvas(0, 0, content);
 
@@ -79,10 +78,59 @@ export class Board {
     return res;
   }
 
+  findCanvasWidth(content) {
+    let count = 0;
+    let c = 0;
+    let maxLength = 0;
+    let length = 0;
+    for (let i = 0; i < content.length; i++) {
+      try {
+        if (content[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]) {
+          c = Number(content[i]); 
+          count *= 10;
+          count += c;
+        } else {
+          throw new Error(content[i] + " ei ole luku");
+        }
+      } catch (err) {
+        if (content[i] == "!") {
+          break;
+        }
+        if (content[i] == "$") {
+          count = 0;
+          c = 0;
+          maxLength = Math.max(length, maxLength);
+          length = 0;
+          continue;
+        }
+        if (count == 0 && c == 0) {
+          length += 1;
+        } else {
+          length += count;
+        }
+        count = 0;
+        c = 0;
+      }
+    }
+    maxLength = Math.max(length, maxLength);
+    return maxLength;
+  }
+
   contentToCanvas(x, y, content) {
     let count = 0;
     let c = 0;
     let xpos = x;
+    let lines = content.split("$");
+    lines = lines.length + y;
+    let width = this.findCanvasWidth(content);
+    this.width = Math.max(this.width, x+width);
+    if (lines > this.canvas.length) {
+      for (let i = this.canvas.length; i < lines; i++) {
+        this.canvas[i] = new Array(this.width);
+        this.canvas[i].fill("b");
+      }
+      this.height = lines;
+    }
     //console.log("contentToCanvas(",x,",",y,",",content);
     for (let i = 0; i < content.length; i++) {
       try {
@@ -124,7 +172,6 @@ export class Board {
         c = 0;
       }
     }
-    //console.log(this.canvas);
     // alussa kommenttirivit pois #
     // x = 3, y = 1, rule = B3/S23
     // 3o!
@@ -231,7 +278,6 @@ export class Board {
       }
       this.width = this.canvas[0].length;
     }
-
   }
 
   simulate(iterations) {

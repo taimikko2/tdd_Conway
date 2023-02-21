@@ -227,7 +227,7 @@ describe("Create Board", () => {
 */
 
   it("glider simulate 4 equals original", () => {
-    let b = new Board(3, 3);
+    let b = new Board(1, 1); // too small board -> grow ?
     b.contentToCanvas(0, 0, "2bo$obo$b2o!");
     expect(b.toString()).to.equalShape(`bbo
     obo
