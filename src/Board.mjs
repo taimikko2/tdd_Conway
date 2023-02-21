@@ -105,14 +105,24 @@ export class Board {
     //(`ooo`)
   }
 
+  canSurvive(c) {
+    for (let i =0; i < this.survive.length; i++) {
+      if (c == this.survive[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   tick() {
     let newCanvas = new Array(this.height);
     for (let i = 0; i < this.height; i++) {
       newCanvas[i] = new Array(this.width);
     }
+    let count = 0;
     for (let r = 0; r < this.height; r++) {
       for (let c = 0; c < this.width; c++) {
-        let count = 0;
+        count = 0;
         for (let ri = r - 1; ri <= r + 1; ri++) {
           if (ri < 0 || ri > this.height - 1) {
             continue;
@@ -121,12 +131,15 @@ export class Board {
             if (ci < 0 || ci > this.width - 1) {
               continue;
             }
+            if (ri == r && ci == c) {
+              continue; // etsitään ympäröivien solujen määrää, solua itseään ei lasketa
+            }
             if (this.canvas[ri][ci] == "o") {
               count++;
             }
           }
         }
-        if (count in this.survive && this.canvas[r][c] == "o") {
+        if (this.canSurvive(count) && this.canvas[r][c] == "o") { 
           newCanvas[r][c] = "o"; // survive
         } else if (count == this.birth) {
           newCanvas[r][c] = "o"; // birth
@@ -161,3 +174,9 @@ export class Board {
   }
   
 }
+
+/*
+let b = new Board(5, 5);
+b.contentToCanvas(1, 1, "bbo$obo$boo!");
+//console.log(b.draw());
+b.tick(); */
