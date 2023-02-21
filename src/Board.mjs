@@ -142,7 +142,7 @@ export class Board {
   simulate(iterations) {
     for (let i = 0; i < iterations; i++) {
       this.tick();
-      //console.log(this.toString());
+      console.log(this.toString().replace(/b/g, " ").replace(/\n/g, "|\n")); // try to see the pattern
     }
   }
 
@@ -153,4 +153,5 @@ export class Board {
     }
     return res;
   }
+  
 }

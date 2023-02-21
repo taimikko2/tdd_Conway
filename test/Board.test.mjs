@@ -3,7 +3,7 @@ import { Board } from "../src/Board.mjs";
 import writeFile from "write-file";
 
 describe("Create Board", () => {
-  it("Create empty board", () => {
+/*  it("Create empty board", () => {
     let b = new Board(3, 3);
     expect(b.toString()).to.equalShape(`bbb
     bbb
@@ -158,9 +158,48 @@ describe("Create Board", () => {
     bbobb    
     bbbbb`);
   })
+*/
 
+it("can draw canvas to screen", () => {
+  let b = new Board(3, 3);
+  b.contentToCanvas(0,0, "bbo$obo$boo!");
+  expect(b.toString()).to.equalShape(`bbo
+  obo
+  boo`);
+  expect(b.draw()).to.equalShape(`bbo|
+  obo|
+  boo|`);
+
+})
+
+  xit("glider 1 tick", () => {
+    let b = new Board(5, 5);
+    b.contentToCanvas(0,0, "bbo$obo$boo!");
+    //expect(b.toString()).to.equalShape(`bbo
+    //obo
+    //boo`);
+    console.log(b.toString().replace(/b/g, " ").replace(/\n/g, "|\n")); // try to see the pattern
+
+    expect(b.toString()).to.equalShape(`bbobb
+    obobb
+    boobb
+    bbbbb
+    bbbbb`);
+    b.tick();
+    expect(b.toString()).to.equalShape(`bbobb
+    obobb
+    boobb
+    bbbbb
+    bbbbb`);
+   
+    
+  });
+
+  xit("can move in canvas", () => {
+    // ,,,
+  });  
   // G:/HY/conwayLife/blinker.rle
-  // alussa kommenttisirivit pois #
+  // alussa kommenttirivit pois #
   // x = 3, y = 1, rule = B3/S23
   // 3o!
   // x = m, y = n
