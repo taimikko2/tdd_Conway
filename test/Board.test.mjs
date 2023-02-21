@@ -3,7 +3,7 @@ import { Board } from "../src/Board.mjs";
 import writeFile from "write-file";
 
 describe("Create Board", () => {
-  /*  it("Create empty board", () => {
+    it("Create empty board", () => {
     let b = new Board(3, 3);
     expect(b.toString()).to.equalShape(`bbb
     bbb
@@ -224,7 +224,7 @@ describe("Create Board", () => {
     expect(b.height).to.equal(3);
     expect(b.width).to.equal(4);
   });
-*/
+
 
   it("glider simulate 4 equals original", () => {
     let b = new Board(1, 1); // too small board -> grow ?
