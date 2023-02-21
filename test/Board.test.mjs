@@ -100,9 +100,9 @@ describe("Create Board", () => {
     expect(b.survive[0]).to.be.equal(2);
     expect(b.survive[1]).to.be.equal(3);
     b.tick();
-    expect(b.toString()).to.equalShape(`ob
-    ob
-    ob`);
+    expect(b.toString()).to.equalShape(`o
+    o
+    o`);
     
   })
 
