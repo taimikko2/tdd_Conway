@@ -221,6 +221,8 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`bobb
     bboo
     boob`);
+    expect(b.height).to.equal(3);
+    expect(b.width).to.equal(4);
   });
 
   xit("can move in canvas", () => {
