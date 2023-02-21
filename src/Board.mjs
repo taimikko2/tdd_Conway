@@ -153,5 +153,11 @@ export class Board {
     }
     return res;
   }
+
+  draw() {
+    let res = "|"+this.toString().replace(/b/g, " ").replace(/\n/g, "|\n|"); 
+    res = res.slice(0, res.length -1);
+    return res;
+  }
   
 }

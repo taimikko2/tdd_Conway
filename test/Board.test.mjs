@@ -166,10 +166,7 @@ it("can draw canvas to screen", () => {
   expect(b.toString()).to.equalShape(`bbo
   obo
   boo`);
-  expect(b.draw()).to.equalShape(`bbo|
-  obo|
-  boo|`);
-
+  expect(b.draw()).to.equal(`|  o|\n|o o|\n| oo|\n`);
 })
 
   xit("glider 1 tick", () => {
