@@ -198,19 +198,19 @@ export class Board {
     if (line.every(bOnly)) {
       this.canvas.length -= 1;
       //this.canvas.pop();
-      this.height -= 1;
+      this.height = this.canvas.length;
     }
 
     for (let r = 0; r < this.canvas.length; r++) {
-      if (this.canvas[r][this.width] != "b") {
+      if (this.canvas[r][this.width - 1] != "b") {
         bColumn = false;
       }
     }
     if (bColumn) {
       for (let r = 0; r < this.canvas.length; r++) {
-        line = this.canvas[r];
-        line.length -= 1;
+        line = this.canvas[r].pop();
       }
+      this.width = this.canvas[0].length;
     }
   }
 
@@ -238,4 +238,7 @@ export class Board {
 
 /*let b = new Board(3, 3);
 b.contentToCanvas(0, 0, "bbo$obo$boo!");
-b.tick();*/
+b.tick();
+b.tick();
+b.tick();
+b.toString();*/
