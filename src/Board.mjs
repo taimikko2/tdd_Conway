@@ -193,11 +193,17 @@ export class Board {
   cleanCanvas() {
     let bColumn = true;
     const bOnly = (value) => value == "b";
-    let line = this.canvas[this.height - 1];
-    // jos viimeisellä rivillä on pelkkää b:tä niin poistetaan (ehkä myös ekalla ?)
+    let line;
+
+    line = this.canvas[0];
+    if (line.every(bOnly)) {
+      this.canvas.shift();
+      this.height = this.canvas.length;
+    }
+
+    line = this.canvas[this.height - 1];
     if (line.every(bOnly)) {
       this.canvas.length -= 1;
-      //this.canvas.pop();
       this.height = this.canvas.length;
     }
 
