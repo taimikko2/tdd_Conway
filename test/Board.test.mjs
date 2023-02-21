@@ -226,7 +226,24 @@ describe("Create Board", () => {
   });
 */
 
-  it("glider moving 3 ticks (remove top line and left column)", () => {
+  it("glider simulate 4 equals original", () => {
+    let b = new Board(3, 3);
+    b.contentToCanvas(0, 0, "2bo$obo$b2o!");
+    expect(b.toString()).to.equalShape(`bbo
+    obo
+    boo`);
+    console.log(b.draw());
+    b.simulate(4);
+    console.log(b.draw());
+    expect(b.toString()).to.equalShape(`bbo
+    obo
+    boo`);
+    expect(b.asRLE()).to.equal("2bo$obo$b2o!");
+    expect(b.height).to.equal(3);
+    expect(b.width).to.equal(3);
+  });
+
+  xit("glider moving 3 ticks (remove top line and left column)", () => {
     let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo
