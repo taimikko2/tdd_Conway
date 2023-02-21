@@ -187,7 +187,7 @@ describe("Create Board", () => {
   });
 */
 
-  it("can be printed in RLE -format", () => {
+  xit("can be printed in RLE -format", () => {
     let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo

@@ -52,7 +52,6 @@ export class Board {
   }
 
   asRLE() {
-    // ei optimoi rivin loppuja (jos lopussa pelkkää b:tä, niin voisi olla $)
     let res = "";
     let ch;
     let count;
@@ -67,12 +66,12 @@ export class Board {
         if (ch == this.canvas[r][c]) {
           count++;
         } else {
-          res += (count == 1) ? ch : count + ch;
+          res += count == 1 ? ch : count + ch;
           ch = this.canvas[r][c];
           count = 1;
         }
-        if (c == this.width - 1) {
-          res += (count == 1) ? ch : count + ch;
+        if (c == this.width - 1 && ch == "o") {
+          res += count == 1 ? ch : count + ch;
         }
       }
     }
@@ -121,12 +120,11 @@ export class Board {
             xpos += 1;
           }
         }
-        //console.log(this.canvas);
         count = 0;
         c = 0;
       }
     }
-    console.log(this.canvas);
+    //console.log(this.canvas);
     // alussa kommenttirivit pois #
     // x = 3, y = 1, rule = B3/S23
     // 3o!
@@ -185,7 +183,7 @@ export class Board {
   simulate(iterations) {
     for (let i = 0; i < iterations; i++) {
       this.tick();
-      console.log(this.draw());
+      //console.log(this.draw());
     }
   }
 
