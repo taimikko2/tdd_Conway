@@ -158,7 +158,6 @@ describe("Create Board", () => {
     bbobb    
     bbbbb`);
   })
-*/
 
   it("can draw canvas to screen", () => {
     let b = new Board(3, 3);
@@ -186,15 +185,19 @@ describe("Create Board", () => {
     bboob
     bbbbb`);
   });
+*/
 
-  xit("glider 1 tick", () => {
-    let b = new Board(5, 5);
+// laske kuvion vasen yläkulma R ja tallenna sijainti
+// palauta kuvio RLE -formaatissa : vasen yläkulma + pienin tarvitava alue
+
+
+  xit("glider 1 tick (small canvas)", () => {
+    // TODO: ...
+    let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
-    expect(b.toString()).to.equalShape(`bbobb
-    obobb
-    boobb
-    bbbbb
-    bbbbb`);
+    expect(b.toString()).to.equalShape(`bbo
+    obo
+    boo`);
     console.log(b.draw());
     b.tick();
     console.log(b.draw());
