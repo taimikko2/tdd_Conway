@@ -205,7 +205,7 @@ describe("Create Board", () => {
     console.log(b.draw());
     expect(b.asRLE()).to.equal("$2o$bo!");
   });
-*/
+
   // laske kuvion vasen yläkulma R ja tallenna sijainti
   // palauta kuvio RLE -formaatissa : vasen yläkulma + pienin tarvitava alue
 
@@ -224,10 +224,29 @@ describe("Create Board", () => {
     expect(b.height).to.equal(3);
     expect(b.width).to.equal(4);
   });
+*/
 
-  xit("can move in canvas", () => {
-    // ,,,
+  it("glider moving 3 ticks", () => {
+    let b = new Board(3, 3);
+    b.contentToCanvas(0, 0, "bbo$obo$boo!");
+    expect(b.toString()).to.equalShape(`bbo
+    obo
+    boo`);
+    console.log(b.draw());
+    b.tick();
+    console.log(b.draw());
+    b.tick();
+    console.log(b.draw());
+    b.tick();
+    console.log(b.draw());
+    expect(b.toString()).to.equalShape(`bbbb
+    bobo
+    bboo
+    bbob`);
+    expect(b.height).to.equal(4);
+    expect(b.width).to.equal(4);
   });
+
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttirivit pois #
   // x = 3, y = 1, rule = B3/S23
