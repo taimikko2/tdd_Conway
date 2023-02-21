@@ -197,6 +197,16 @@ describe("Create Board", () => {
     expect(b.asRLE()).to.equal("2bo$obo$b2o!");
   });
 
+  it("more compact RLE output (clear ending 'b':s)", () => {
+    let b = new Board(3, 3);
+    b.contentToCanvas(0, 0, "bbb$oob$bob!");
+    expect(b.toString()).to.equalShape(`bbb
+    oob
+    bob`);
+    console.log(b.draw());
+    expect(b.asRLE()).to.equal("$2o$bo!");
+  });
+
   // laske kuvion vasen yläkulma R ja tallenna sijainti
   // palauta kuvio RLE -formaatissa : vasen yläkulma + pienin tarvitava alue
 
