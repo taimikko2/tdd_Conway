@@ -185,9 +185,8 @@ describe("Create Board", () => {
     bboob
     bbbbb`);
   });
-*/
 
-  xit("can be printed in RLE -format", () => {
+  it("can be printed in RLE -format", () => {
     let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo
@@ -206,11 +205,11 @@ describe("Create Board", () => {
     console.log(b.draw());
     expect(b.asRLE()).to.equal("$2o$bo!");
   });
-
+*/
   // laske kuvion vasen yläkulma R ja tallenna sijainti
   // palauta kuvio RLE -formaatissa : vasen yläkulma + pienin tarvitava alue
 
-  xit("glider 1 tick (small canvas)", () => {
+  it("glider moving 1 tick (small canvas, grow right+down)", () => {
     // TODO: ...
     let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
@@ -220,11 +219,9 @@ describe("Create Board", () => {
     console.log(b.draw());
     b.tick();
     console.log(b.draw());
-    expect(b.toString()).to.equalShape(`bobbb
-    bboob
-    boobb
-    bbbbb
-    bbbbb`);
+    expect(b.toString()).to.equalShape(`bobb
+    bboo
+    boob`);
   });
 
   xit("can move in canvas", () => {
