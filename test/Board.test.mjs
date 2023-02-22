@@ -256,8 +256,11 @@ describe("Conways game of life", () => {
     expect(b.height).to.equal(32);
     expect(b.width).to.equal(68);
   });
-  // alussa kommenttirivit pois #
-  // x = 3, y = 1, rule = B3/S23
-  // x = m, y = n
-  // width , height
+
+  it("can tell info about itself", async () => {
+    let filename = "G:\\HY\\conwayLife\\glidertrain.rle";
+    await b.run(filename, 0);
+    expect(b.info()).to.equal("x = 68, y = 33, rule = B3/S23");
+  } )
+
 });

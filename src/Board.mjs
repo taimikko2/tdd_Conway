@@ -88,13 +88,6 @@ export class Board {
     return this.toString();
   }
 
-  async addRLE(x, y, filename) {
-    //console.log("addRLE(",x,",",y,",",filename,")");
-    var content = readTextFile.readSync(filename);
-    this.contentToCanvas(x, y, content);
-    return this.toString();
-  }
-
   asRLE() {
     let res = "";
     let ch;
@@ -368,7 +361,8 @@ export class Board {
   }
 }
 
-/*let b = new Board(1, 1);
-let filename = "G:\\HY\\conwayLife\\blinker.rle";
-let res = await b.run(filename, 1);
-*/
+let b = new Board(1, 1);
+let filename = "G:\\HY\\conwayLife\\glidertrain.rle";
+let res = await b.run(filename, 30);
+console.log(b.draw());
+
