@@ -197,6 +197,11 @@ export class Board {
   }
 
   tick() {
+    let newLine = new Array(this.width);
+    newLine.fill("b");
+    this.canvas.unshift(newLine);
+    this.height += 1; 
+    console.log(this.canvas);
     let newCanvas = new Array(this.height);
     for (let i = 0; i <= this.height; i++) {
       newCanvas[i] = new Array(this.width);
@@ -302,9 +307,8 @@ export class Board {
   }
 }
 
-/*let b = new Board(3, 3);
-b.contentToCanvas(0, 0, "bbo$obo$boo!");
+let b = new Board(1, 1);
+b.contentToCanvas(0, 0, "3o!"); 
+console.log(b.draw());
 b.tick();
-b.tick();
-b.tick();
-b.toString();*/
+console.log(b.draw());

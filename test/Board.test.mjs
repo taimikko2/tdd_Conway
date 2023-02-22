@@ -258,11 +258,12 @@ describe("Create Board", () => {
   });
 */
 it("can grow upwards (blink)",  () => {
-  const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
   let b = new Board(1, 1);
   b.contentToCanvas(0, 0, "3o!"); 
   expect(b.toString()).to.equalShape(`ooo`);
+  console.log(b.draw());
   b.tick();
+  console.log(b.draw());
   expect(b.width).equal(1);
   expect(b.height).equal(3);
   expect(b.toString()).to.equalShape(`o
