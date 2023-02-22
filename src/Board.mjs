@@ -359,10 +359,15 @@ export class Board {
     res = res.slice(0, res.length - 1);
     return res;
   }
+
+  info() {
+    return("x = "+this.width+", y = "+this.height+", rule = B"+this.birth+"/S"+this.survive[0]+this.survive[1]);
+  }
 }
 
-let b = new Board(1, 1);
+let b = new Board();
 let filename = "G:\\HY\\conwayLife\\glidertrain.rle";
-let res = await b.run(filename, 30);
-console.log(b.draw());
+let res = await b.run(filename, 0);
+//console.log(b.draw());
+console.log(b.info(), b.height, b.width);
 
