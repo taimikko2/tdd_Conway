@@ -10,7 +10,7 @@ export class Board {
   birth;
   survive;
 
-  constructor(w, h) {
+  constructor(w=1, h=1) {
     this.width = w;
     this.height = h;
     this.canvas = new Array(h);

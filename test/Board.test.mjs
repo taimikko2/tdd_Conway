@@ -256,6 +256,18 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`ooo`);
   });
 
+  it("constructor default size (1,1)", () => {
+    let b = new Board();
+    expect(b.height).equal(1);
+    expect(b.width).equal(1);
+    expect(b.toString()).to.equalShape(`b`);
+  })
+
+  xit("glider gun ", () => {
+    let b = new Board(1,1);
+    // "24bo11b$22bobo11b$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o14b$2o8bo3bob2o4bobo11b$10bo5bo7bo11b$11bo3bo20b$12b2o!"
+  })
+
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttirivit pois #
   // x = 3, y = 1, rule = B3/S23
