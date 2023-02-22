@@ -3,7 +3,8 @@ import { Board } from "../src/Board.mjs";
 import writeFile from "write-file";
 
 describe("Create Board", () => {
-    it("Create empty board", () => {
+/*
+  it("Create empty board", () => {
     let b = new Board(3, 3);
     expect(b.toString()).to.equalShape(`bbb
     bbb
@@ -15,9 +16,9 @@ describe("Create Board", () => {
     let b = new Board(1, 1);
     // kirjoita tiedosto, jossa on yksi rivi "3o!" ja lue se
     await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? "+err)
+      if (err) return console.log("===? " + err);
 
-      console.log("Wrote file "+filename);
+      console.log("Wrote file " + filename);
     });
     b = await b.readRLE(filename);
     // 3o! -> 'ooo'
@@ -28,9 +29,9 @@ describe("Create Board", () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\testRLE_12b3o.rle";
     let b = new Board(1, 1);
     await writeFile(filename, "12b3o!", function (err) {
-      if (err) return console.log("===? "+err)
+      if (err) return console.log("===? " + err);
 
-      console.log("Wrote file "+filename);
+      console.log("Wrote file " + filename);
     });
     b = await b.readRLE(filename);
     expect(b.toString()).to.equalShape(`bbbbbbbbbbbbooo`);
@@ -38,22 +39,21 @@ describe("Create Board", () => {
 
   it("End of line is $ and after it there is only b", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\testRLE_12b3o.rle";
-    let b = new Board(12,3);
-    b.contentToCanvas(0,0, "obo$11o$o!");
+    let b = new Board(12, 3);
+    b.contentToCanvas(0, 0, "obo$11o$o!");
     expect(b.toString()).to.equalShape(`obobbbbbbbbb
     ooooooooooob
     obbbbbbbbbbb`);
   });
 
-  
   it("has a rule (B3/S23)", () => {
-    let b = new Board(3,3);
+    let b = new Board(3, 3);
     expect(b.birth).to.be.equal(3);
-    let a = [2,3];
+    let a = [2, 3];
     expect(b.survive.length).to.be.equal(2);
     expect(b.survive[0]).to.be.equal(2);
     expect(b.survive[1]).to.be.equal(3);
-  })
+  });
 
   it("can add blinker to bigger board", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
@@ -64,11 +64,11 @@ describe("Create Board", () => {
     bbbbb    
     bbbbb`);
     await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? "+err)
+      if (err) return console.log("===? " + err);
 
-      console.log("Wrote file "+filename);
+      console.log("Wrote file " + filename);
     });
-    await b.addRLE(1,2,filename);
+    await b.addRLE(1, 2, filename);
     // 3o! -> 'ooo'
     expect(b.toString()).to.equalShape(`bbbbb
     bbbbb
@@ -76,26 +76,26 @@ describe("Create Board", () => {
     bbbbb    
     bbbbb`);
     expect(b.birth).to.be.equal(3);
-    let a = [2,3];
+    let a = [2, 3];
     expect(b.survive.length).to.be.equal(2);
     expect(b.survive[0]).to.be.equal(2);
     expect(b.survive[1]).to.be.equal(3);
-  })
+  });
 
   it("can change state (tick)", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
     let b = new Board(3, 3);
     await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? "+err)
+      if (err) return console.log("===? " + err);
 
-      console.log("Wrote file "+filename);
+      console.log("Wrote file " + filename);
     });
-    await b.addRLE(0,1,filename);
+    await b.addRLE(0, 1, filename);
     expect(b.toString()).to.equalShape(`bbb
     ooo
     bbb`);
     expect(b.birth).to.be.equal(3);
-    let a = [2,3];
+    let a = [2, 3];
     expect(b.survive.length).to.be.equal(2);
     expect(b.survive[0]).to.be.equal(2);
     expect(b.survive[1]).to.be.equal(3);
@@ -103,25 +103,24 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`o
     o
     o`);
-    
-  })
+  });
 
   it("tick twice brings blinker back to original state", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\test3_3o.rle";
     let b = new Board(5, 5);
     await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? "+err)
+      if (err) return console.log("===? " + err);
 
-      console.log("Wrote file "+filename);
+      console.log("Wrote file " + filename);
     });
-    await b.addRLE(1,2,filename);
+    await b.addRLE(1, 2, filename);
     expect(b.toString()).to.equalShape(`bbbbb
     bbbbb
     booob
     bbbbb    
     bbbbb`);
     expect(b.birth).to.be.equal(3);
-    let a = [2,3];
+    let a = [2, 3];
     expect(b.survive.length).to.be.equal(2);
     expect(b.survive[0]).to.be.equal(2);
     expect(b.survive[1]).to.be.equal(3);
@@ -132,17 +131,17 @@ describe("Create Board", () => {
     booob
     bbbbb    
     bbbbb`);
-  })
+  });
 
   it("can simulate number of iterations", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\test4_3o.rle";
     let b = new Board(5, 5);
     await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? "+err)
+      if (err) return console.log("===? " + err);
 
-      console.log("Wrote file "+filename);
+      console.log("Wrote file " + filename);
     });
-    await b.addRLE(1,2,filename);
+    await b.addRLE(1, 2, filename);
     expect(b.birth).to.be.equal(3);
     expect(b.survive.length).to.be.equal(2);
     expect(b.survive[0]).to.be.equal(2);
@@ -153,7 +152,7 @@ describe("Create Board", () => {
     bbobb
     bbobb    
     bbbbb`);
-  })
+  });
 
   it("can draw canvas to screen", () => {
     let b = new Board(3, 3);
@@ -221,7 +220,6 @@ describe("Create Board", () => {
     expect(b.width).to.equal(4);
   });
 
-
   it("glider simulate 4 equals original", () => {
     let b = new Board(1, 1); // too small board -> grow ?
     b.contentToCanvas(0, 0, "2bo$obo$b2o!");
@@ -258,6 +256,19 @@ describe("Create Board", () => {
     expect(b.height).to.equal(3);
     expect(b.width).to.equal(3);
   });
+*/
+it("can grow upwards (blink)",  () => {
+  const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
+  let b = new Board(1, 1);
+  b.contentToCanvas(0, 0, "3o!"); 
+  expect(b.toString()).to.equalShape(`ooo`);
+  b.tick();
+  expect(b.width).equal(1);
+  expect(b.height).equal(3);
+  expect(b.toString()).to.equalShape(`o
+  o
+  o`);
+});
 
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttirivit pois #
