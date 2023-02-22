@@ -31,7 +31,7 @@ export class Board {
   }
 
   async cleanContent(content) {
-    let data = content.split("\n");
+    let data = content.replace(/\r/gi,'').split("\n");
     let line = data[0].trim();
     let params;
     //console.log(data);

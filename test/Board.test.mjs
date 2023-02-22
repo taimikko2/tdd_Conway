@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import writeFile from "write-file";
+import { normalize } from "./testing.mjs";
 
 describe("Conways game of life", () => {
   let b;
@@ -8,7 +9,7 @@ describe("Conways game of life", () => {
   beforeEach(() => {
     b = new Board();
   });
-/*
+  /*
   it("Create empty board", () => {
     let b2 = new Board(3, 3);
     expect(b2.toString()).to.equalShape(`bbb
@@ -226,20 +227,37 @@ describe("Conways game of life", () => {
     expect(b.width).to.equal(3);
   })
 */
-  it("can read file, pass comments '#' and pass 'x,y,rule'", async () => {
-    // long file: G:\HY\conwayLife\glidertrain.rle // splitted lines
-    // short file: G:\\HY\\conwayLife\\blinker.rle
+  xit("can read file, pass comments '#' and pass 'x,y,rule'", async () => {
     let filename = "G:\\HY\\conwayLife\\blinker.rle";
     let res = await b.run(filename, 1);
     //console.log(b.draw());
     expect(res).to.equal("o$o$o!");
     expect(b.height).to.equal(3);
     expect(b.width).to.equal(1);
-  })
+  });
 
+  it("can read complex file, pass comments '#' and pass 'x,y,rule'", async () => {
+    let filename = "G:\\HY\\conwayLife\\glidertrain.rle";
+    let res = await b.run(filename, 0);
+    console.log(b.draw());
+    console.log(b.asRLE());
+    console.log(b.height, b.width);
+    expect(normalize(res)).to.equal(normalize(
+      `32b2o$31b2o$33bo17b6o6b2o$50bo5bo4bo4bo$56bo10bo$26b5o19bo4bo5bo5bo$\
+      25bo4bo21b2o8b6o$30bo$18b2o5bo3bo23bo$18b2o7bo24bobo$14b3o4bo29bo5bo$\
+      13bob2o5b2o11b2o15bobobobo6bo$b2o9b2obobo3b2o11bo2bo13b2o2bo3bo5b2o$o\
+      2bo9b6o9b2o4bobo7b2o5b2o3b2obo4bob2o$b2o11b4o10b2o5bo8b2o7bo5bo4bobo$\
+      50bobo11b2o$50bobo11b2o$b2o11b4o10b2o5bo8b2o7bo5bo4bobo$o2bo9b6o9b2o\
+      4bobo7b2o5b2o3b2obo4bob2o$b2o9b2obobo3b2o11bo2bo13b2o2bo3bo5b2o$13bob\
+      2o5b2o11b2o15bobobobo6bo$14b3o4bo29bo5bo$18b2o7bo24bobo$18b2o5bo3bo23b\
+      o$30bo$25bo4bo21b2o8b6o$26b5o19bo4bo5bo5bo$56bo10bo$50bo5bo4bo4bo$33bo\
+      17b6o6b2o$31b2o$32b2o!`)
+    );
+    expect(b.height).to.equal(32);
+    expect(b.width).to.equal(68);
+  });
   // alussa kommenttirivit pois #
   // x = 3, y = 1, rule = B3/S23
-  // 3o!
   // x = m, y = n
   // width , height
 });
