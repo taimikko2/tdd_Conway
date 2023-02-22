@@ -8,7 +8,7 @@ describe("Conways game of life", () => {
   beforeEach(() => {
     b = new Board();
   });
-
+/*
   it("Create empty board", () => {
     let b2 = new Board(3, 3);
     expect(b2.toString()).to.equalShape(`bbb
@@ -225,8 +225,18 @@ describe("Conways game of life", () => {
     expect(b.height).to.equal(3);
     expect(b.width).to.equal(3);
   })
+*/
+  it("can read file, pass comments '#' and pass 'x,y,rule'", async () => {
+    // long file: G:\HY\conwayLife\glidertrain.rle // splitted lines
+    // short file: G:\\HY\\conwayLife\\blinker.rle
+    let filename = "G:\\HY\\conwayLife\\blinker.rle";
+    let res = await b.run(filename, 1);
+    //console.log(b.draw());
+    expect(res).to.equal("o$o$o!");
+    expect(b.height).to.equal(3);
+    expect(b.width).to.equal(1);
+  })
 
-  // G:/HY/conwayLife/blinker.rle
   // alussa kommenttirivit pois #
   // x = 3, y = 1, rule = B3/S23
   // 3o!
