@@ -208,7 +208,7 @@ describe("Create Board", () => {
     expect(b.width).to.equal(3);
   });
 
-  xit("glider moving 3 ticks (remove top line and left column)", () => {
+  it("glider moving 3 ticks (remove top line and left column)", () => {
     let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo
