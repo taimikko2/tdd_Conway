@@ -118,24 +118,18 @@ describe("Create Board", () => {
   });
 
   it("can simulate number of iterations", async () => {
-    const filename = "G:\\HY\\tdd\\tdd_Conway\\test4_3o.rle";
-    let b = new Board(5, 5);
-    await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? " + err);
-
-      console.log("Wrote file " + filename);
-    });
-    await b.addRLE(1, 2, filename);
+    let b = new Board(1, 1);
+    b.contentToCanvas(0, 0, "3o!");
+    expect(b.toString()).to.equalShape(`ooo`);
     expect(b.birth).to.be.equal(3);
     expect(b.survive.length).to.be.equal(2);
     expect(b.survive[0]).to.be.equal(2);
     expect(b.survive[1]).to.be.equal(3);
+    console.log(b.draw());
     b.simulate(3);
-    expect(b.toString()).to.equalShape(`bbbbb
-    bbobb
-    bbobb
-    bbobb    
-    bbbbb`);
+    expect(b.toString()).to.equalShape(`o
+    o
+    o`);
   });
 
   it("can draw canvas to screen", () => {
