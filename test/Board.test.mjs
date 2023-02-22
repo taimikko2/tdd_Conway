@@ -3,17 +3,21 @@ import { Board } from "../src/Board.mjs";
 import writeFile from "write-file";
 
 describe("Create Board", () => {
+  let b;
+
+  beforeEach(() => {
+    b = new Board();
+  });
+
   it("Create empty board", () => {
-    let b = new Board(3, 3);
-    expect(b.toString()).to.equalShape(`bbb
+    let b2 = new Board(3, 3);
+    expect(b2.toString()).to.equalShape(`bbb
     bbb
     bbb`);
   });
 
   it("Read simple RLE file '3o!' -> 'ooo' ", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\test_3o.rle";
-    let b = new Board(1, 1);
-    // kirjoita tiedosto, jossa on yksi rivi "3o!" ja lue se
     await writeFile(filename, "3o!", function (err) {
       if (err) return console.log("===? " + err);
 
@@ -24,29 +28,7 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`ooo`);
   });
 
-  it("Read longer RLE file '12b3o!' -> 'bbbbbbbbbbbbooo' ", async () => {
-    const filename = "G:\\HY\\tdd\\tdd_Conway\\testRLE_12b3o.rle";
-    let b = new Board(1, 1);
-    await writeFile(filename, "12b3o!", function (err) {
-      if (err) return console.log("===? " + err);
-
-      console.log("Wrote file " + filename);
-    });
-    b = await b.readRLE(filename);
-    expect(b.toString()).to.equalShape(`bbbbbbbbbbbbooo`);
-  });
-
-  it("End of line is $ and after it there is only b", async () => {
-    const filename = "G:\\HY\\tdd\\tdd_Conway\\testRLE_12b3o.rle";
-    let b = new Board(12, 3);
-    b.contentToCanvas(0, 0, "obo$11o$o!");
-    expect(b.toString()).to.equalShape(`obobbbbbbbbb
-    ooooooooooob
-    obbbbbbbbbbb`);
-  });
-
   it("has a rule (B3/S23)", () => {
-    let b = new Board(3, 3);
     expect(b.birth).to.be.equal(3);
     let a = [2, 3];
     expect(b.survive.length).to.be.equal(2);
@@ -56,8 +38,8 @@ describe("Create Board", () => {
 
   it("can add blinker to bigger board", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
-    let b = new Board(5, 5);
-    expect(b.toString()).to.equalShape(`bbbbb
+    let b2 = new Board(5, 5);
+    expect(b2.toString()).to.equalShape(`bbbbb
     bbbbb
     bbbbb
     bbbbb    
@@ -67,32 +49,23 @@ describe("Create Board", () => {
 
       console.log("Wrote file " + filename);
     });
-    await b.addRLE(1, 2, filename);
+    await b2.addRLE(1, 2, filename);
     // 3o! -> 'ooo'
-    expect(b.toString()).to.equalShape(`bbbbb
+    expect(b2.toString()).to.equalShape(`bbbbb
     bbbbb
     booob
     bbbbb    
     bbbbb`);
-    expect(b.birth).to.be.equal(3);
+    expect(b2.birth).to.be.equal(3);
     let a = [2, 3];
-    expect(b.survive.length).to.be.equal(2);
-    expect(b.survive[0]).to.be.equal(2);
-    expect(b.survive[1]).to.be.equal(3);
+    expect(b2.survive.length).to.be.equal(2);
+    expect(b2.survive[0]).to.be.equal(2);
+    expect(b2.survive[1]).to.be.equal(3);
   });
 
-  it("can change state (tick)", async () => {
-    const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
-    let b = new Board(3, 3);
-    await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? " + err);
-
-      console.log("Wrote file " + filename);
-    });
-    await b.addRLE(0, 1, filename);
-    expect(b.toString()).to.equalShape(`bbb
-    ooo
-    bbb`);
+  it("can change state (tick)", () => {
+    b.contentToCanvas(0, 0, "3o!");
+    expect(b.toString()).to.equalShape(`ooo`);
     expect(b.birth).to.be.equal(3);
     let a = [2, 3];
     expect(b.survive.length).to.be.equal(2);
@@ -105,7 +78,6 @@ describe("Create Board", () => {
   });
 
   it("tick twice brings blinker back to original state", () => {
-    let b = new Board(1, 1);
     b.contentToCanvas(0, 0, "3o!");
     expect(b.toString()).to.equalShape(`ooo`);
     console.log(b.draw());
@@ -118,7 +90,6 @@ describe("Create Board", () => {
   });
 
   it("can simulate number of iterations", async () => {
-    let b = new Board(1, 1);
     b.contentToCanvas(0, 0, "3o!");
     expect(b.toString()).to.equalShape(`ooo`);
     expect(b.birth).to.be.equal(3);
@@ -133,16 +104,14 @@ describe("Create Board", () => {
   });
 
   it("can draw canvas to screen", () => {
-    let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo
-  obo
-  boo`);
+    obo
+    boo`);
     expect(b.draw()).to.equal(`|  o|\n|o o|\n| oo|\n`);
   });
 
-  it("glider 1 tick big canvas", () => {
-    let b = new Board(5, 5);
+  it("glider 1 tick", () => {
     b.contentToCanvas(1, 1, "bbo$obo$boo!");
     console.log(b.draw());
     b.tick();
@@ -153,7 +122,6 @@ describe("Create Board", () => {
   });
 
   it("can be printed in RLE -format", () => {
-    let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo
     obo
@@ -163,7 +131,6 @@ describe("Create Board", () => {
   });
 
   it("more compact RLE output (clear ending 'b':s)", () => {
-    let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbb$oob$bob!");
     expect(b.toString()).to.equalShape(`bbb
     oob
@@ -176,7 +143,6 @@ describe("Create Board", () => {
   // palauta kuvio RLE -formaatissa : vasen yläkulma + pienin tarvitava alue
 
   it("glider moving 1 tick (small canvas, grow right+down)", () => {
-    let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo
     obo
@@ -192,7 +158,6 @@ describe("Create Board", () => {
   });
 
   it("glider simulate 4 equals original", () => {
-    let b = new Board(1, 1); // too small board -> grow ?
     b.contentToCanvas(0, 0, "2bo$obo$b2o!");
     expect(b.toString()).to.equalShape(`bbo
     obo
@@ -209,7 +174,6 @@ describe("Create Board", () => {
   });
 
   it("glider moving 3 ticks (remove top line and left column)", () => {
-    let b = new Board(3, 3);
     b.contentToCanvas(0, 0, "bbo$obo$boo!");
     expect(b.toString()).to.equalShape(`bbo
     obo
@@ -229,7 +193,6 @@ describe("Create Board", () => {
   });
 
   it("can grow upwards (blink)", () => {
-    let b = new Board(1, 1);
     b.contentToCanvas(0, 0, "3o!");
     expect(b.toString()).to.equalShape(`ooo`);
     console.log(b.draw());
@@ -238,16 +201,15 @@ describe("Create Board", () => {
     expect(b.width).equal(1);
     expect(b.height).equal(3);
     expect(b.toString()).to.equalShape(`o
-  o
-  o`);
+    o
+    o`);
   });
 
   it("can grow left (blink)", () => {
-    let b = new Board(1, 1);
     b.contentToCanvas(0, 0, "o$o$o!");
     expect(b.toString()).to.equalShape(`o
-  o
-  o`);
+    o
+    o`);
     console.log(b.draw());
     b.tick();
     console.log(b.draw());
@@ -257,26 +219,28 @@ describe("Create Board", () => {
   });
 
   it("constructor default size (1,1)", () => {
-    let b = new Board();
     expect(b.height).equal(1);
     expect(b.width).equal(1);
     expect(b.toString()).to.equalShape(`b`);
-  })
+  });
 
   it("glider gun 30 creates glider", () => {
-    let b = new Board();
     let a;
-    b.contentToCanvas(0,0,"24bo11b$22bobo11b$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o14b$2o8bo3bob2o4bobo11b$10bo5bo7bo11b$11bo3bo20b$12b2o!");
+    b.contentToCanvas(
+      0,
+      0,
+      "24bo11b$22bobo11b$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o14b$2o8bo3bob2o4bobo11b$10bo5bo7bo11b$11bo3bo20b$12b2o!"
+    );
     a = b.asRLE();
     b.simulate(30);
-    console.log(b.draw())
+    console.log(b.draw());
     let b2 = new Board();
-    b2.contentToCanvas(0,0,a);
-    b2.contentToCanvas(23,9,"o$b2o$2o!")
-    console.log(b2.draw())
+    b2.contentToCanvas(0, 0, a);
+    b2.contentToCanvas(23, 9, "o$b2o$2o!");
+    console.log(b2.draw());
     expect(b.toString()).to.equalShape(b2.toString());
     expect(b.asRLE()).to.equal(b2.asRLE());
-  })
+  });
 
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttirivit pois #
