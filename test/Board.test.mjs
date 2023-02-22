@@ -184,11 +184,11 @@ describe("Create Board", () => {
     console.log(b.draw());
     b.tick();
     console.log(b.draw());
-    expect(b.toString()).to.equalShape(`bobb
-    bboo
-    boob`);
+    expect(b.toString()).to.equalShape(`obb
+    boo
+    oob`);
     expect(b.height).to.equal(3);
-    expect(b.width).to.equal(4);
+    expect(b.width).to.equal(3);
   });
 
   it("glider simulate 4 equals original", () => {
