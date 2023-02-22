@@ -224,8 +224,8 @@ describe("Conways game of life", () => {
 
       console.log("Wrote file " + filename);
     });
-    res = await b.run(filename, 5);
-    expect(res).to.equal("o2b$b2o$2ob!");
+    let res = await b.run(filename, 5);
+    expect(res).to.equal("o$b2o$2o!");
     expect(b.height).to.equal(3);
     expect(b.width).to.equal(3);
   })

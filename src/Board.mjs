@@ -24,6 +24,12 @@ export class Board {
     }
   }
 
+  async run(filename, iterations) {
+    await this.readRLE(filename);
+    this.simulate(iterations);
+    return this.asRLE();
+  }
+
   async readRLE(filename) {
     // "G:/HY/conwayLife/blinker.rle"
     var content = readTextFile.readSync(filename);
