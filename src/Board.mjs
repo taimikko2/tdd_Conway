@@ -42,27 +42,6 @@ export class Board {
     }
     // jätetäänkö x, y, rule ?
     if (line[0] == "x") {
-      /** /
-      params = line.split(",");
-      let temp, vari, value;
-      for (let i = 0; i < params.length; i++) {
-        temp = params[i].split("=");
-        switch (temp[0].trim()[0]) {
-          case "x":
-            let x = Number(temp[1].trim());
-            break;
-          case "y":
-            let y = Number(temp[1].trim());
-            break;
-
-          default:
-            // rule
-            let rule = temp[1].split("/");
-            // B3/S23
-            break;
-        }
-      }
-      / **/
       data.shift();
     }
     data = data.join("");
@@ -71,18 +50,8 @@ export class Board {
 
   async readRLE(filename) {
     var content = readTextFile.readSync(filename);
-    console.log("luettiin " + content + " " + content.length);
+    //console.log("luettiin " + content + " " + content.length);
     content = await this.cleanContent(content);
-    let h = 1;
-    let w = 3;
-    this.width = w;
-    this.height = h;
-    let res = "";
-    let count = 1;
-    this.canvas = new Array(h);
-    for (let i = 0; i < this.height; i++) {
-      this.canvas[i] = new Array(w);
-    }
     this.contentToCanvas(0, 0, content);
 
     return this.toString();
@@ -173,7 +142,7 @@ export class Board {
     for (let i = 0; i < content.length; i++) {
       try {
         if (content[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]) {
-          c = Number(content[i]); // erikoistapauksena kaksinumeroinen luku ...
+          c = Number(content[i]);
           count *= 10;
           count += c;
         } else {
@@ -197,7 +166,6 @@ export class Board {
           continue;
         }
         if (count == 0 && c == 0) {
-          // content[i] in ["b","o"] &&
           this.canvas[y][xpos] = content[i];
           xpos += 1;
         } else {
@@ -210,12 +178,6 @@ export class Board {
         c = 0;
       }
     }
-    // alussa kommenttirivit pois #
-    // x = 3, y = 1, rule = B3/S23
-    // 3o!
-    // x = m, y = n
-    // width , height
-    //(`ooo`)
   }
 
   canSurvive(c) {
@@ -365,9 +327,9 @@ export class Board {
   }
 }
 
-let b = new Board();
+/*let b = new Board();
 let filename = "G:\\HY\\conwayLife\\glidertrain.rle";
 let res = await b.run(filename, 0);
 //console.log(b.draw());
 console.log(b.info(), b.height, b.width);
-
+*/

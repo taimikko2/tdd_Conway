@@ -9,7 +9,7 @@ describe("Conways game of life", () => {
   beforeEach(() => {
     b = new Board();
   });
-  /*
+  
   it("Create empty board", () => {
     let b2 = new Board(3, 3);
     expect(b2.toString()).to.equalShape(`bbb
@@ -226,8 +226,8 @@ describe("Conways game of life", () => {
     expect(b.height).to.equal(3);
     expect(b.width).to.equal(3);
   })
-*/
-  xit("can read file, pass comments '#' and pass 'x,y,rule'", async () => {
+
+  it("can read file, pass comments '#' and pass 'x,y,rule'", async () => {
     let filename = "G:\\HY\\conwayLife\\blinker.rle";
     let res = await b.run(filename, 1);
     //console.log(b.draw());
@@ -236,12 +236,10 @@ describe("Conways game of life", () => {
     expect(b.width).to.equal(1);
   });
 
-  xit("can read complex file, pass comments '#' and pass 'x,y,rule'", async () => {
+  it("can read complex file, pass comments '#' and pass 'x,y,rule'", async () => {
     let filename = "G:\\HY\\conwayLife\\glidertrain.rle";
     let res = await b.run(filename, 0);
-    console.log(b.draw());
-    console.log(b.asRLE());
-    console.log(b.height, b.width);
+    //console.log(b.draw());
     expect(normalize(res)).to.equal(normalize(
       `32b2o$31b2o$33bo17b6o6b2o$50bo5bo4bo4bo$56bo10bo$26b5o19bo4bo5bo5bo$\
       25bo4bo21b2o8b6o$30bo$18b2o5bo3bo23bo$18b2o7bo24bobo$14b3o4bo29bo5bo$\
