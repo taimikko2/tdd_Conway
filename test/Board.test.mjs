@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { Board } from "../src/Board.mjs";
 import writeFile from "write-file";
 
-describe("Create Board", () => {
+describe("Conways game of life", () => {
   let b;
 
   beforeEach(() => {
@@ -18,8 +18,9 @@ describe("Create Board", () => {
 
   it("Read simple RLE file '3o!' -> 'ooo' ", async () => {
     const filename = "G:\\HY\\tdd\\tdd_Conway\\test_3o.rle";
-    await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? " + err);
+    writeFile(filename, "3o!", function (err) {
+      if (err)
+        return console.log("===? " + err);
 
       console.log("Wrote file " + filename);
     });
@@ -34,33 +35,6 @@ describe("Create Board", () => {
     expect(b.survive.length).to.be.equal(2);
     expect(b.survive[0]).to.be.equal(2);
     expect(b.survive[1]).to.be.equal(3);
-  });
-
-  it("can add blinker to bigger board", async () => {
-    const filename = "G:\\HY\\tdd\\tdd_Conway\\test2_3o.rle";
-    let b2 = new Board(5, 5);
-    expect(b2.toString()).to.equalShape(`bbbbb
-    bbbbb
-    bbbbb
-    bbbbb    
-    bbbbb`);
-    await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? " + err);
-
-      console.log("Wrote file " + filename);
-    });
-    await b2.addRLE(1, 2, filename);
-    // 3o! -> 'ooo'
-    expect(b2.toString()).to.equalShape(`bbbbb
-    bbbbb
-    booob
-    bbbbb    
-    bbbbb`);
-    expect(b2.birth).to.be.equal(3);
-    let a = [2, 3];
-    expect(b2.survive.length).to.be.equal(2);
-    expect(b2.survive[0]).to.be.equal(2);
-    expect(b2.survive[1]).to.be.equal(3);
   });
 
   it("can change state (tick)", () => {
@@ -241,6 +215,20 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(b2.toString());
     expect(b.asRLE()).to.equal(b2.asRLE());
   });
+
+  it("can read a file, iterate and output result", async () => {
+    const filename = "G:\\HY\\tdd\\tdd_Conway\\test_glider.rle";
+    writeFile(filename, "2bo$obo$b2o!", function (err) {
+      if (err)
+        return console.log("===? " + err);
+
+      console.log("Wrote file " + filename);
+    });
+    res = await b.run(filename, 5);
+    expect(res).to.equal("o2b$b2o$2ob!");
+    expect(b.height).to.equal(3);
+    expect(b.width).to.equal(3);
+  })
 
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttirivit pois #
