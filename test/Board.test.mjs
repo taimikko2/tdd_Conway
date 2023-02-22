@@ -104,32 +104,17 @@ describe("Create Board", () => {
     o`);
   });
 
-  it("tick twice brings blinker back to original state", async () => {
-    const filename = "G:\\HY\\tdd\\tdd_Conway\\test3_3o.rle";
-    let b = new Board(5, 5);
-    await writeFile(filename, "3o!", function (err) {
-      if (err) return console.log("===? " + err);
-
-      console.log("Wrote file " + filename);
-    });
-    await b.addRLE(1, 2, filename);
-    expect(b.toString()).to.equalShape(`bbbbb
-    bbbbb
-    booob
-    bbbbb    
-    bbbbb`);
-    expect(b.birth).to.be.equal(3);
-    let a = [2, 3];
-    expect(b.survive.length).to.be.equal(2);
-    expect(b.survive[0]).to.be.equal(2);
-    expect(b.survive[1]).to.be.equal(3);
+  it("tick twice brings blinker back to original state", () => {
+    let b = new Board(1, 1);
+    b.contentToCanvas(0, 0, "3o!");
+    expect(b.toString()).to.equalShape(`ooo`);
+    console.log(b.draw());
     b.tick();
     b.tick();
-    expect(b.toString()).to.equalShape(`bbbbb
-    bbbbb
-    booob
-    bbbbb    
-    bbbbb`);
+    console.log(b.draw());
+    expect(b.width).equal(3);
+    expect(b.height).equal(1);
+    expect(b.toString()).to.equalShape(`ooo`);
   });
 
   it("can simulate number of iterations", async () => {
