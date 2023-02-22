@@ -54,10 +54,10 @@ describe("Conways game of life", () => {
   it("tick twice brings blinker back to original state", () => {
     b.contentToCanvas(0, 0, "3o!");
     expect(b.toString()).to.equalShape(`ooo`);
-    console.log(b.draw());
+    //console.log(b.draw());
     b.tick();
     b.tick();
-    console.log(b.draw());
+    //console.log(b.draw());
     expect(b.width).equal(3);
     expect(b.height).equal(1);
     expect(b.toString()).to.equalShape(`ooo`);
@@ -70,7 +70,7 @@ describe("Conways game of life", () => {
     expect(b.survive.length).to.be.equal(2);
     expect(b.survive[0]).to.be.equal(2);
     expect(b.survive[1]).to.be.equal(3);
-    console.log(b.draw());
+    //console.log(b.draw());
     b.simulate(3);
     expect(b.toString()).to.equalShape(`o
     o
@@ -87,9 +87,9 @@ describe("Conways game of life", () => {
 
   it("glider 1 tick", () => {
     b.contentToCanvas(1, 1, "bbo$obo$boo!");
-    console.log(b.draw());
+    //console.log(b.draw());
     b.tick();
-    console.log(b.draw());
+    //console.log(b.draw());
     expect(b.toString()).to.equalShape(`obb
     boo
     oob`);
@@ -100,7 +100,7 @@ describe("Conways game of life", () => {
     expect(b.toString()).to.equalShape(`bbo
     obo
     boo`);
-    console.log(b.draw());
+    //console.log(b.draw());
     expect(b.asRLE()).to.equal("2bo$obo$b2o!");
   });
 
@@ -109,7 +109,7 @@ describe("Conways game of life", () => {
     expect(b.toString()).to.equalShape(`bbb
     oob
     bob`);
-    console.log(b.draw());
+    //console.log(b.draw());
     expect(b.asRLE()).to.equal("$2o$bo!");
   });
 
@@ -121,9 +121,9 @@ describe("Conways game of life", () => {
     expect(b.toString()).to.equalShape(`bbo
     obo
     boo`);
-    console.log(b.draw());
+    //console.log(b.draw());
     b.tick();
-    console.log(b.draw());
+    //console.log(b.draw());
     expect(b.toString()).to.equalShape(`obb
     boo
     oob`);
@@ -136,9 +136,9 @@ describe("Conways game of life", () => {
     expect(b.toString()).to.equalShape(`bbo
     obo
     boo`);
-    console.log(b.draw());
+    //console.log(b.draw());
     b.simulate(4);
-    console.log(b.draw());
+    //console.log(b.draw());
     expect(b.toString()).to.equalShape(`bbo
     obo
     boo`);
@@ -152,13 +152,9 @@ describe("Conways game of life", () => {
     expect(b.toString()).to.equalShape(`bbo
     obo
     boo`);
-    console.log(b.draw());
     b.tick();
-    console.log(b.draw());
     b.tick();
-    console.log(b.draw());
     b.tick();
-    console.log(b.draw());
     expect(b.toString()).to.equalShape(`obo
     boo
     bob`);
@@ -169,9 +165,9 @@ describe("Conways game of life", () => {
   it("can grow upwards (blink)", () => {
     b.contentToCanvas(0, 0, "3o!");
     expect(b.toString()).to.equalShape(`ooo`);
-    console.log(b.draw());
+    //console.log(b.draw());
     b.tick();
-    console.log(b.draw());
+    //console.log(b.draw());
     expect(b.width).equal(1);
     expect(b.height).equal(3);
     expect(b.toString()).to.equalShape(`o
@@ -184,9 +180,9 @@ describe("Conways game of life", () => {
     expect(b.toString()).to.equalShape(`o
     o
     o`);
-    console.log(b.draw());
+    //console.log(b.draw());
     b.tick();
-    console.log(b.draw());
+    //console.log(b.draw());
     expect(b.width).equal(3);
     expect(b.height).equal(1);
     expect(b.toString()).to.equalShape(`ooo`);
@@ -207,11 +203,11 @@ describe("Conways game of life", () => {
     );
     a = b.asRLE();
     b.simulate(30);
-    console.log(b.draw());
+    //console.log(b.draw());
     let b2 = new Board();
     b2.contentToCanvas(0, 0, a);
     b2.contentToCanvas(23, 9, "o$b2o$2o!");
-    console.log(b2.draw());
+    //console.log(b2.draw());
     expect(b.toString()).to.equalShape(b2.toString());
     expect(b.asRLE()).to.equal(b2.asRLE());
   });
