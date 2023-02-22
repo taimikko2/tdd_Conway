@@ -10,7 +10,7 @@ export class Board {
   birth;
   survive;
 
-  constructor(w=1, h=1) {
+  constructor(w = 1, h = 1) {
     this.width = w;
     this.height = h;
     this.canvas = new Array(h);
@@ -30,10 +30,49 @@ export class Board {
     return this.asRLE();
   }
 
+  async cleanContent(content) {
+    let data = content.split("\n");
+    let line = data[0].trim();
+    let params;
+    //console.log(data);
+
+    while (line[0] == "#") {
+      data.shift();
+      line = data[0].trim();
+    }
+    // jätetäänkö x, y, rule ?
+    if (line[0] == "x") {
+      /** /
+      params = line.split(",");
+      let temp, vari, value;
+      for (let i = 0; i < params.length; i++) {
+        temp = params[i].split("=");
+        switch (temp[0].trim()[0]) {
+          case "x":
+            let x = Number(temp[1].trim());
+            break;
+          case "y":
+            let y = Number(temp[1].trim());
+            break;
+
+          default:
+            // rule
+            let rule = temp[1].split("/");
+            // B3/S23
+            break;
+        }
+      }
+      / **/
+      data.shift();
+    }
+    data = data.join("");
+    return data;
+  }
+
   async readRLE(filename) {
-    // "G:/HY/conwayLife/blinker.rle"
     var content = readTextFile.readSync(filename);
-    //console.log("luettiin " + content + " " + content.length);
+    console.log("luettiin " + content + " " + content.length);
+    content = await this.cleanContent(content);
     let h = 1;
     let w = 3;
     this.width = w;
@@ -330,8 +369,6 @@ export class Board {
 }
 
 /*let b = new Board(1, 1);
-b.contentToCanvas(0, 0, "o$o$o!");
-console.log(b.draw());
-b.tick();
-console.log(b.draw());
+let filename = "G:\\HY\\conwayLife\\blinker.rle";
+let res = await b.run(filename, 1);
 */
