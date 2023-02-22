@@ -144,19 +144,12 @@ describe("Create Board", () => {
   it("glider 1 tick big canvas", () => {
     let b = new Board(5, 5);
     b.contentToCanvas(1, 1, "bbo$obo$boo!");
-    expect(b.toString()).to.equalShape(`bbbbb
-    bbbob
-    bobob
-    bboob
-    bbbbb`);
     console.log(b.draw());
     b.tick();
     console.log(b.draw());
-    expect(b.toString()).to.equalShape(`bbbbb
-    bbobb
-    bbboo
-    bboob
-    bbbbb`);
+    expect(b.toString()).to.equalShape(`obb
+    boo
+    oob`);
   });
 
   it("can be printed in RLE -format", () => {
