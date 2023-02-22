@@ -3,7 +3,6 @@ import { Board } from "../src/Board.mjs";
 import writeFile from "write-file";
 
 describe("Create Board", () => {
-  /*
   it("Create empty board", () => {
     let b = new Board(3, 3);
     expect(b.toString()).to.equalShape(`bbb
@@ -256,8 +255,8 @@ describe("Create Board", () => {
     expect(b.height).to.equal(3);
     expect(b.width).to.equal(3);
   });
-*/
-  xit("can grow upwards (blink)", () => {
+
+  it("can grow upwards (blink)", () => {
     let b = new Board(1, 1);
     b.contentToCanvas(0, 0, "3o!");
     expect(b.toString()).to.equalShape(`ooo`);
