@@ -263,9 +263,19 @@ describe("Create Board", () => {
     expect(b.toString()).to.equalShape(`b`);
   })
 
-  xit("glider gun ", () => {
-    let b = new Board(1,1);
-    // "24bo11b$22bobo11b$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o14b$2o8bo3bob2o4bobo11b$10bo5bo7bo11b$11bo3bo20b$12b2o!"
+  it("glider gun 30 creates glider", () => {
+    let b = new Board();
+    let a;
+    b.contentToCanvas(0,0,"24bo11b$22bobo11b$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o14b$2o8bo3bob2o4bobo11b$10bo5bo7bo11b$11bo3bo20b$12b2o!");
+    a = b.asRLE();
+    b.simulate(30);
+    console.log(b.draw())
+    let b2 = new Board();
+    b2.contentToCanvas(0,0,a);
+    b2.contentToCanvas(23,9,"o$b2o$2o!")
+    console.log(b2.draw())
+    expect(b.toString()).to.equalShape(b2.toString());
+    expect(b.asRLE()).to.equal(b2.asRLE());
   })
 
   // G:/HY/conwayLife/blinker.rle
