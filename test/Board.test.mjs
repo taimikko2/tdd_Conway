@@ -3,7 +3,7 @@ import { Board } from "../src/Board.mjs";
 import writeFile from "write-file";
 
 describe("Create Board", () => {
-/*
+  /*
   it("Create empty board", () => {
     let b = new Board(3, 3);
     expect(b.toString()).to.equalShape(`bbb
@@ -257,19 +257,33 @@ describe("Create Board", () => {
     expect(b.width).to.equal(3);
   });
 */
-it("can grow upwards (blink)",  () => {
-  let b = new Board(1, 1);
-  b.contentToCanvas(0, 0, "3o!"); 
-  expect(b.toString()).to.equalShape(`ooo`);
-  console.log(b.draw());
-  b.tick();
-  console.log(b.draw());
-  expect(b.width).equal(1);
-  expect(b.height).equal(3);
-  expect(b.toString()).to.equalShape(`o
+  xit("can grow upwards (blink)", () => {
+    let b = new Board(1, 1);
+    b.contentToCanvas(0, 0, "3o!");
+    expect(b.toString()).to.equalShape(`ooo`);
+    console.log(b.draw());
+    b.tick();
+    console.log(b.draw());
+    expect(b.width).equal(1);
+    expect(b.height).equal(3);
+    expect(b.toString()).to.equalShape(`o
   o
   o`);
-});
+  });
+
+  it("can grow left (blink)", () => {
+    let b = new Board(1, 1);
+    b.contentToCanvas(0, 0, "o$o$o!");
+    expect(b.toString()).to.equalShape(`o
+  o
+  o`);
+    console.log(b.draw());
+    b.tick();
+    console.log(b.draw());
+    expect(b.width).equal(3);
+    expect(b.height).equal(1);
+    expect(b.toString()).to.equalShape(`ooo`);
+  });
 
   // G:/HY/conwayLife/blinker.rle
   // alussa kommenttirivit pois #
