@@ -196,11 +196,20 @@ export class Board {
     return false;
   }
 
-  tick() {
-    let newLine = new Array(this.width);
-    newLine.fill("b");
-    this.canvas.unshift(newLine);
+  enlargeCanvas() {
+    let line = new Array(this.width);
+    line.fill("b");
+    this.canvas.unshift(line);
     this.height += 1;
+    for (let i = 0; i < this.height; i++) {
+      line = this.canvas[i];
+      line.unshift("b");
+    }
+    this.width += 1;
+  }
+
+  tick() {
+    this.enlargeCanvas();
     //console.log(this.canvas);
     let newCanvas = new Array(this.height);
     for (let i = 0; i <= this.height; i++) {
@@ -248,15 +257,17 @@ export class Board {
     let line;
 
     line = this.canvas[0];
-    if (line.every(bOnly)) {
+    while (line.every(bOnly)) {
       this.canvas.shift();
       this.height = this.canvas.length;
+      line = this.canvas[0];
     }
 
     line = this.canvas[this.height - 1];
-    if (line.every(bOnly)) {
+    while (line.every(bOnly)) {
       this.canvas.length -= 1;
       this.height = this.canvas.length;
+      line = this.canvas[this.height - 1];
     }
 
     bColumn = true;
@@ -312,8 +323,9 @@ export class Board {
   }
 }
 
-let b = new Board(1, 1);
-b.contentToCanvas(0, 0, "3o!");
+/*let b = new Board(1, 1);
+b.contentToCanvas(0, 0, "o$o$o!");
 console.log(b.draw());
 b.tick();
 console.log(b.draw());
+*/
