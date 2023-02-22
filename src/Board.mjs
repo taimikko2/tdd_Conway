@@ -86,7 +86,7 @@ export class Board {
     for (let i = 0; i < content.length; i++) {
       try {
         if (content[i] in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]) {
-          c = Number(content[i]); 
+          c = Number(content[i]);
           count *= 10;
           count += c;
         } else {
@@ -123,7 +123,7 @@ export class Board {
     let lines = content.split("$");
     lines = lines.length + y;
     let width = this.findCanvasWidth(content);
-    this.width = Math.max(this.width, x+width);
+    this.width = Math.max(this.width, x + width);
     if (lines > this.canvas.length) {
       for (let i = this.canvas.length; i < lines; i++) {
         this.canvas[i] = new Array(this.width);
@@ -200,8 +200,8 @@ export class Board {
     let newLine = new Array(this.width);
     newLine.fill("b");
     this.canvas.unshift(newLine);
-    this.height += 1; 
-    console.log(this.canvas);
+    this.height += 1;
+    //console.log(this.canvas);
     let newCanvas = new Array(this.height);
     for (let i = 0; i <= this.height; i++) {
       newCanvas[i] = new Array(this.width);
@@ -243,7 +243,7 @@ export class Board {
   }
 
   cleanCanvas() {
-    let bColumn = true;
+    let bColumn;
     const bOnly = (value) => value == "b";
     let line;
 
@@ -259,29 +259,34 @@ export class Board {
       this.height = this.canvas.length;
     }
 
-    for (let r = 0; r < this.canvas.length; r++) {
-      if (this.canvas[r][this.width - 1] != "b") {
-        bColumn = false;
-      }
-    }
-    if (bColumn) {
+    bColumn = true;
+    while (bColumn) {
       for (let r = 0; r < this.canvas.length; r++) {
-        this.canvas[r].pop();
+        if (this.canvas[r][this.width - 1] != "b") {
+          bColumn = false;
+        }
       }
-      this.width = this.canvas[0].length;
+      if (bColumn) {
+        for (let r = 0; r < this.canvas.length; r++) {
+          this.canvas[r].pop();
+        }
+        this.width = this.canvas[0].length;
+      }
     }
 
     bColumn = true;
-    for (let r = 0; r < this.canvas.length; r++) {
-      if (this.canvas[r][0] != "b") {
-        bColumn = false;
-      }
-    }
-    if (bColumn) {
+    while (bColumn) {
       for (let r = 0; r < this.canvas.length; r++) {
-        this.canvas[r].shift();
+        if (this.canvas[r][0] != "b") {
+          bColumn = false;
+        }
       }
-      this.width = this.canvas[0].length;
+      if (bColumn) {
+        for (let r = 0; r < this.canvas.length; r++) {
+          this.canvas[r].shift();
+        }
+        this.width = this.canvas[0].length;
+      }
     }
   }
 
@@ -308,7 +313,7 @@ export class Board {
 }
 
 let b = new Board(1, 1);
-b.contentToCanvas(0, 0, "3o!"); 
+b.contentToCanvas(0, 0, "3o!");
 console.log(b.draw());
 b.tick();
 console.log(b.draw());
